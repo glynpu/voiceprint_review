@@ -1,5 +1,43 @@
-[Joint Factor Analysis versus Eigenchannels in Speaker Recognition](https://www.crim.ca/perso/patrick.kenny/FASysJ.pdf)
+公式总结：
+1. 认为均值超矢量包含两部分factors: speaker + channel  
+<a href="https://www.codecogs.com/eqnedit.php?latex=M&space;=&space;s&space;&plus;&space;c" target="_blank"><img src="https://latex.codecogs.com/gif.latex?M&space;=&space;s&space;&plus;&space;c" title="M = s + c" /></a>  
+    进一步分解为：  
+<a href="https://www.codecogs.com/eqnedit.php?latex=\begin{align*}&space;M&space;&=&space;s&space;&plus;&space;c&space;\\&space;&=&space;m&space;&plus;&space;vy&space;&plus;&space;dz&space;&plus;&space;ux\\&space;&=&space;c&space;&plus;&space;s&space;\\&space;&=&space;ux&space;&plus;&space;m&space;&plus;&space;vy&space;&plus;&space;dz&space;\end{align*}" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\begin{align*}&space;M&space;&=&space;s&space;&plus;&space;c&space;\\&space;&=&space;m&space;&plus;&space;vy&space;&plus;&space;dz&space;&plus;&space;ux\\&space;&=&space;c&space;&plus;&space;s&space;\\&space;&=&space;ux&space;&plus;&space;m&space;&plus;&space;vy&space;&plus;&space;dz&space;\end{align*}" title="\begin{align*} M &= s + c \\ &= m + vy + dz + ux\\ &= c + s \\ &= ux + m + vy + dz \end{align*}" /></a>
 
+    In the new model, we make no distinction between speaker effects and the channel effects in GMM supervector space  
+<a href="https://www.codecogs.com/eqnedit.php?latex=M&space;=&space;m&space;&plus;&space;Tw" target="_blank"><img src="https://latex.codecogs.com/gif.latex?M&space;=&space;m&space;&plus;&space;Tw" title="M = m + Tw" /></a>
+
+
+
+[A Study of Inter-Speaker Variability in Speaker Verification](http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.494.6825&rep=rep1&type=pdf)
+总结： 如何估计 v矩阵 和 d 对角阵  
+Our concern in this article is with the way the hyperparameters v and d are estimated 
+Abstract of Abstract:
+
+hyperparameters are T U Z   
+    <a href="https://www.codecogs.com/eqnedit.php?latex=M&space;=&space;s&space;&plus;&space;c" target="_blank"><img src="https://latex.codecogs.com/gif.latex?M&space;=&space;s&space;&plus;&space;c" title="M = s + c" /></a>
+    
+    S is short for Speaker
+    c is short for channel
+  <a href="https://www.codecogs.com/eqnedit.php?latex=s&space;=&space;m&space;&plus;&space;Vy&space;&plus;&space;Dz" target="_blank"><img src="https://latex.codecogs.com/gif.latex?s&space;=&space;m&space;&plus;&space;Vy&space;&plus;&space;Dz" title="s = m + Vy + Dz" /></a>
+
+    D is short for Diagnoal   
+    V is a rectangular matrix
+
+<a href="https://www.codecogs.com/eqnedit.php?latex=c&space;=&space;ux" target="_blank"><img src="https://latex.codecogs.com/gif.latex?c&space;=&space;ux" title="c = ux" /></a>
+
+so   
+<a href="https://www.codecogs.com/eqnedit.php?latex=\begin{align*}&space;M&space;&=&space;s&space;&plus;&space;c&space;\\&space;&=&space;m&space;&plus;&space;vy&space;&plus;&space;dz&space;&plus;&space;ux\\&space;&=&space;c&space;&plus;&space;s&space;\\&space;&=&space;ux&space;&plus;&space;m&space;&plus;&space;vy&space;&plus;&space;dz&space;\end{align*}" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\begin{align*}&space;M&space;&=&space;s&space;&plus;&space;c&space;\\&space;&=&space;m&space;&plus;&space;vy&space;&plus;&space;dz&space;&plus;&space;ux\\&space;&=&space;c&space;&plus;&space;s&space;\\&space;&=&space;ux&space;&plus;&space;m&space;&plus;&space;vy&space;&plus;&space;dz&space;\end{align*}" title="\begin{align*} M &= s + c \\ &= m + vy + dz + ux\\ &= c + s \\ &= ux + m + vy + dz \end{align*}" /></a>
+
+    F is short for feature vectors
+    C is short Components in a Universal Backgroud Model(UBM)
+    supervector: CF-dimensional vector obtained by concatenating the F-dimensional mean vectors in the GMM corresponding to a given utterance
+ 
+
+PHD thesis [Discriminative and generative approches for long- and short-term speaker characteristics modeling: Application to speaker verification](http://espace.etsmtl.ca/33/1/DEHAK_Najim.pdf)
+这个工作使JFA 转向 i-vector 
+
+[Joint Factor Analysis versus Eigenchannels in Speaker Recognition](https://www.crim.ca/perso/patrick.kenny/FASysJ.pdf)
 
 
 JFA ["Comparison of Scoring methods used in speaker recognition with joint factor analysis"](http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.535.8896&rep=rep1&type=pdf)
@@ -47,9 +85,7 @@ C is number of Gaussians in the GMM
 
 The closed form(logarithmic) solution is then given as
 
-<a href="https://www.codecogs.com/eqnedit.php?latex=\begin{align*}&space;log\tilde{P}(\chi|x)&space;=&space;\sum_{c=1}^{C}N_{c}log\frac{1}{(2\pi)^\frac{F}{2}&space;\left&space;|&space;\Sigma_{c}^\frac{1}{2}&space;\right&space;|}&space;\\&space;-&space;\frac{1}{2}tr(\Sigma^{-1}&space;\bold&space;S_{s})&space;-&space;\frac{1}{2}log\left|&space;\bold&space;L\right|&space;\\&space;&plus;&space;\frac{1}{2}\left&space;\|&space;\bold&space;L^{\frac{-1}{2}}&space;\bold&space;U^*&space;\Sigma^{-1}&space;\bold&space;F_{s}&space;\right&space;\|^{2}&space;\end{align*}" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\begin{align*}&space;log\tilde{P}(\chi|x)&space;=&space;\sum_{c=1}^{C}N_{c}log\frac{1}{(2\pi)^\frac{F}{2}&space;\left&space;|&space;\Sigma_{c}^\frac{1}{2}&space;\right&space;|}&space;\\&space;-&space;\frac{1}{2}tr(\Sigma^{-1}&space;\bold&space;S_{s})&space;-&space;\frac{1}{2}log\left|&space;\bold&space;L\right|&space;\\&space;&plus;&space;\frac{1}{2}\left&space;\|&space;\bold&space;L^{\frac{-1}{2}}&space;\bold&space;U^*&space;\Sigma^{-1}&space;\bold&space;F_{s}&space;\right&space;\|^{2}&space;\end{align*}" title="\begin{align*} log\tilde{P}(\chi|x) = \sum_{c=1}^{C}N_{c}log\frac{1}{(2\pi)^\frac{F}{2} \left | \Sigma_{c}^\frac{1}{2} \right |} \\ - \frac{1}{2}tr(\Sigma^{-1} \bold S_{s}) - \frac{1}{2}log\left| \bold L\right| \\ + \frac{1}{2}\left \| \bold L^{\frac{-1}{2}} \bold U^* \Sigma^{-1} \bold F_{s} \right \|^{2} \end{align*}" /></a>
-
-
+<a href="https://www.codecogs.com/eqnedit.php?latex=\begin{align*}&space;log\tilde{P}(\chi|x)&space;=&space;\sum_{c=1}^{C}N_{c}log\frac{1}{(2\pi)^\frac{F}{2}&space;\left&space;|&space;\Sigma_{c}&space;\right&space;|^\frac{1}{2}}&space;\\&space;-&space;\frac{1}{2}tr(\Sigma^{-1}&space;\bold&space;S_{s})&space;-&space;\frac{1}{2}log\left|&space;\bold&space;L\right|&space;\\&space;&plus;&space;\frac{1}{2}\left&space;\|&space;\bold&space;L^{\frac{-1}{2}}&space;\bold&space;U^*&space;\Sigma^{-1}&space;\bold&space;F_{s}&space;\right&space;\|^{2}&space;\end{align*}" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\begin{align*}&space;log\tilde{P}(\chi|x)&space;=&space;\sum_{c=1}^{C}N_{c}log\frac{1}{(2\pi)^\frac{F}{2}&space;\left&space;|&space;\Sigma_{c}&space;\right&space;|^\frac{1}{2}}&space;\\&space;-&space;\frac{1}{2}tr(\Sigma^{-1}&space;\bold&space;S_{s})&space;-&space;\frac{1}{2}log\left|&space;\bold&space;L\right|&space;\\&space;&plus;&space;\frac{1}{2}\left&space;\|&space;\bold&space;L^{\frac{-1}{2}}&space;\bold&space;U^*&space;\Sigma^{-1}&space;\bold&space;F_{s}&space;\right&space;\|^{2}&space;\end{align*}" title="\begin{align*} log\tilde{P}(\chi|x) = \sum_{c=1}^{C}N_{c}log\frac{1}{(2\pi)^\frac{F}{2} \left | \Sigma_{c} \right |^\frac{1}{2}} \\ - \frac{1}{2}tr(\Sigma^{-1} \bold S_{s}) - \frac{1}{2}log\left| \bold L\right| \\ + \frac{1}{2}\left \| \bold L^{\frac{-1}{2}} \bold U^* \Sigma^{-1} \bold F_{s} \right \|^{2} \end{align*}" /></a>
 
 Dehak [Front-end factor analysis for speaker verification](http://habla.dc.uba.ar/gravano/ith-2014/presentaciones/Dehak_et_al_2010.pdf)
 Published in 2010
@@ -114,9 +150,3 @@ Process
 1. front-end: cepstral feature extraction and UBM training
 2. back-end: sufficient statistics computation, T-matrix training, i-vector extraction, dimensionality reduction and scoring  
 ![](https://github.com/glynpu/voiceprint_review/blob/master/jpeg/block_diagram_for_frog_identification_system_experiment.png)
-
-
-
- 
-
-<a href="https://www.codecogs.com/eqnedit.php?latex=ax^{2}&space;&plus;&space;by^{2}&space;&plus;&space;c&space;=&space;0" target="_blank"><img src="https://latex.codecogs.com/gif.latex?ax^{2}&space;&plus;&space;by^{2}&space;&plus;&space;c&space;=&space;0" title="ax^{2} + by^{2} + c = 0" /></a>

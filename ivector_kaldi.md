@@ -1,4 +1,47 @@
-公式总结：
+微软声纹识别工具包，mtalab 版本  
+[MSR identity toolbox](https://www.microsoft.com/en-us/research/wp-content/uploads/2013/09/MSR-Identity-Toolbox-v1_1.pdf)  
+
+
+[GMM-UBM](http://statweb.stanford.edu/~tibs/stat315a/LECTURES/em.pdf)   
+[Another tutorial](http://www.ee.bgu.ac.il/~haimp/ml/lectures/lec2/lec2.pdf)
+
+GMM看成软分类的knn：
+a soft version of k-means: EM algorithm for Gaussian mixture model
+
+UBM到GMM的adaption 和UBM训练过程用到的EM本质思想是一样的，只不过UBM用的是全部数据，adaptation用的是target speaker 数据
+
+EM for UBM 
+![](https://github.com/glynpu/voiceprint_review/blob/master/jpeg/EM_for_GMM.png)
+
+
+[Speaker verification using adapted Gaussian mixture models](http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.117.338&rep=rep1&type=pdf)
+
+The specifics of the adaptation are as follows. Given a UBM and training vectors from the hypothesized speakers, <a href="https://www.codecogs.com/eqnedit.php?latex=X&space;=&space;\left&space;\{&space;{x_{1},&space;...,&space;x_{T}}&space;\right&space;\}" target="_blank"><img src="https://latex.codecogs.com/gif.latex?X&space;=&space;\left&space;\{&space;{x_{1},&space;...,&space;x_{T}}&space;\right&space;\}" title="X = \left \{ {x_{1}, ..., x_{T}} \right \}" /></a>
+we first determine the probabilistic alignment of the training vectors into the UBM mixture components. That is, for mixture i in the UBM, we compute  
+
+<a href="https://www.codecogs.com/eqnedit.php?latex=Pr(i|x_{t})&space;=&space;\frac{w_{i}p_{i}(x_{t})}{\Sigma^{M}_{j=1}w_{j}p_{j}(x_{t})}" target="_blank"><img src="https://latex.codecogs.com/gif.latex?Pr(i|x_{t})&space;=&space;\frac{w_{i}p_{i}(x_{t})}{\Sigma^{M}_{j=1}w_{j}p_{j}(x_{t})}" title="Pr(i|x_{t}) = \frac{w_{i}p_{i}(x_{t})}{\Sigma^{M}_{j=1}w_{j}p_{j}(x_{t})}" /></a>
+
+We then use <a href="https://www.codecogs.com/eqnedit.php?latex=Pr(i|x_{t})" target="_blank"><img src="https://latex.codecogs.com/gif.latex?Pr(i|x_{t})" title="Pr(i|x_{t})" /></a> and <a href="https://www.codecogs.com/eqnedit.php?latex=x_{t}" target="_blank"><img src="https://latex.codecogs.com/gif.latex?x_{t}" title="x_{t}" /></a>
+to compute the sufficient statistics for the weight, mean and variance parameters.  
+
+<a href="https://www.codecogs.com/eqnedit.php?latex=n_{i}&space;=&space;\Sigma^{T}_{t=1}Pr(i|x_{t}))" target="_blank"><img src="https://latex.codecogs.com/gif.latex?n_{i}&space;=&space;\Sigma^{T}_{t=1}Pr(i|x_{t}))" title="n_{i} = \Sigma^{T}_{t=1}Pr(i|x_{t}))" /></a>
+
+
+<a href="https://www.codecogs.com/eqnedit.php?latex=E_{i}(x)&space;=&space;\frac{1}{n_{i}}\Sigma^{T}_{t=1}Pr(i|x_{t})x_{t}" target="_blank"><img src="https://latex.codecogs.com/gif.latex?E_{i}(x)&space;=&space;\frac{1}{n_{i}}\Sigma^{T}_{t=1}Pr(i|x_{t})x_{t}" title="E_{i}(x) = \frac{1}{n_{i}}\Sigma^{T}_{t=1}Pr(i|x_{t})x_{t}" /></a>
+
+
+<a href="https://www.codecogs.com/eqnedit.php?latex=E_{i}(x^2)&space;=&space;\frac{1}{n_i}\Sigma^{T}_{t=1}Pr(i|x_t)x^{2}_t" target="_blank"><img src="https://latex.codecogs.com/gif.latex?E_{i}(x^2)&space;=&space;\frac{1}{n_i}\Sigma^{T}_{t=1}Pr(i|x_t)x^{2}_t" title="E_{i}(x^2) = \frac{1}{n_i}\Sigma^{T}_{t=1}Pr(i|x_t)x^{2}_t" /></a>
+
+
+Finally, these new sufficient statistics form the training data are used to update the old UBM sufficient statistics for mixture i to create the adapted 
+parameters for mixture i with the equations:
+
+
+<a href="https://www.codecogs.com/eqnedit.php?latex=\hat{w_i}&space;=&space;[\alpha^w_in_i/T&space;&plus;&space;(1-\alpha^w_i)w_i&space;]&space;\gamma&space;\\&space;\hat{u_i}&space;=&space;\alpha^m_i&space;E_i(x)&space;&plus;&space;(1&space;-&space;\alpha^m_i)\mu_i&space;\\&space;\hat{\sigma}^2_i&space;=&space;\alpha^v_iE_i(x^2)&space;&plus;&space;(1-\alpha^v_i)&space;(&space;\sigma^2_i&space;&plus;&space;\mu_i^2)&space;-&space;\hat{mu}^2_i" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\hat{w_i}&space;=&space;[\alpha^w_in_i/T&space;&plus;&space;(1-\alpha^w_i)w_i&space;]&space;\gamma&space;\\&space;\hat{u_i}&space;=&space;\alpha^m_i&space;E_i(x)&space;&plus;&space;(1&space;-&space;\alpha^m_i)\mu_i&space;\\&space;\hat{\sigma}^2_i&space;=&space;\alpha^v_iE_i(x^2)&space;&plus;&space;(1-\alpha^v_i)&space;(&space;\sigma^2_i&space;&plus;&space;\mu_i^2)&space;-&space;\hat{mu}^2_i" title="\hat{w_i} = [\alpha^w_in_i/T + (1-\alpha^w_i)w_i ] \gamma \\ \hat{u_i} = \alpha^m_i E_i(x) + (1 - \alpha^m_i)\mu_i \\ \hat{\sigma}^2_i = \alpha^v_iE_i(x^2) + (1-\alpha^v_i) ( \sigma^2_i + \mu_i^2) - \hat{mu}^2_i" /></a>
+
+
+
+i-vector 公式总结：
 1. 认为均值超矢量包含两部分factors: speaker + channel  
 <a href="https://www.codecogs.com/eqnedit.php?latex=M&space;=&space;s&space;&plus;&space;c" target="_blank"><img src="https://latex.codecogs.com/gif.latex?M&space;=&space;s&space;&plus;&space;c" title="M = s + c" /></a>  
     进一步分解为：  

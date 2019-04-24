@@ -40,7 +40,6 @@ parameters for mixture i with the equations:
 <a href="https://www.codecogs.com/eqnedit.php?latex=\hat{w_i}&space;=&space;[\alpha^w_in_i/T&space;&plus;&space;(1-\alpha^w_i)w_i&space;]&space;\gamma&space;\\&space;\hat{u_i}&space;=&space;\alpha^m_i&space;E_i(x)&space;&plus;&space;(1&space;-&space;\alpha^m_i)\mu_i&space;\\&space;\hat{\sigma}^2_i&space;=&space;\alpha^v_iE_i(x^2)&space;&plus;&space;(1-\alpha^v_i)&space;(&space;\sigma^2_i&space;&plus;&space;\mu_i^2)&space;-&space;\hat{mu}^2_i" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\hat{w_i}&space;=&space;[\alpha^w_in_i/T&space;&plus;&space;(1-\alpha^w_i)w_i&space;]&space;\gamma&space;\\&space;\hat{u_i}&space;=&space;\alpha^m_i&space;E_i(x)&space;&plus;&space;(1&space;-&space;\alpha^m_i)\mu_i&space;\\&space;\hat{\sigma}^2_i&space;=&space;\alpha^v_iE_i(x^2)&space;&plus;&space;(1-\alpha^v_i)&space;(&space;\sigma^2_i&space;&plus;&space;\mu_i^2)&space;-&space;\hat{mu}^2_i" title="\hat{w_i} = [\alpha^w_in_i/T + (1-\alpha^w_i)w_i ] \gamma \\ \hat{u_i} = \alpha^m_i E_i(x) + (1 - \alpha^m_i)\mu_i \\ \hat{\sigma}^2_i = \alpha^v_iE_i(x^2) + (1-\alpha^v_i) ( \sigma^2_i + \mu_i^2) - \hat{mu}^2_i" /></a>
 
 
-
 i-vector 公式总结：
 1. 认为均值超矢量包含两部分factors: speaker + channel  
 <a href="https://www.codecogs.com/eqnedit.php?latex=M&space;=&space;s&space;&plus;&space;c" target="_blank"><img src="https://latex.codecogs.com/gif.latex?M&space;=&space;s&space;&plus;&space;c" title="M = s + c" /></a>  
@@ -49,6 +48,16 @@ i-vector 公式总结：
 
     In the new model, we make no distinction between speaker effects and the channel effects in GMM supervector space  
 <a href="https://www.codecogs.com/eqnedit.php?latex=M&space;=&space;m&space;&plus;&space;Tw" target="_blank"><img src="https://latex.codecogs.com/gif.latex?M&space;=&space;m&space;&plus;&space;Tw" title="M = m + Tw" /></a>
+
+如何训练i-vector extractor 的文章  
+[A straightforward and Efficient Implementation of the Factor Analysis Model for Speaker Verification](https://alize.univ-avignon.fr/doc/publis/07_Interspeech_Matrouf.pdf)
+
+[Front-End Factor Analysis for Speaker Verification](http://habla.dc.uba.ar/gravano/ith-2014/presentaciones/Dehak_et_al_2010.pdf)
+
+[Eigenvoice Modeling With Sparse Training Data](https://www.crim.ca/perso/patrick.kenny/eigenvoices.PDF)
+
+[A Small Footprint i-Vector Extractor](https://www.crim.ca/perso/patrick.kenny/kenny_odyssey2012.pdf)
+
 
 
 
